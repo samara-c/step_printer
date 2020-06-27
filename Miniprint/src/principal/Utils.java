@@ -34,21 +34,20 @@ public class Utils {
 		return horarioFinal;
 	}
 	
-	public void criarPasta () { //cria uma pasta dentro do diretorio target
+	public String criarPasta (String endereco) { //cria uma pasta dentro do diretorio target
 		
 		try {
-			nomeEEnderecoPasta = "D:\\"+data("dd_MM_yyyy")+"_"
-		+horario();
+			nomeEEnderecoPasta = (endereco+"\\Capturas"+horario());
 			File pasta = new File (nomeEEnderecoPasta);
 			pasta.mkdir();
-			System.out.println("A pasta "+nomeEEnderecoPasta+" foi criada com sucesso!");
-		
+			System.out.println("A pasta "+nomeEEnderecoPasta+" foi criada com sucesso!");	
 			
 		} catch (Exception e) {
 			
 			System.out.println("Não foi possivel criar a pasta no destino especificado");
 			e.printStackTrace();
 		}
+		return nomeEEnderecoPasta;
 		
 		
 	}
