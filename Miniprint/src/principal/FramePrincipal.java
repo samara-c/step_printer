@@ -58,10 +58,10 @@ public class FramePrincipal  implements ActionListener {
         labelDiretorio.setVisible(true);
         
         frame.setLayout(new FlowLayout());
-        frame.setSize(500,200);
+        frame.setSize(500,120);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setVisible(true);
+      
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(icone);
         
@@ -70,6 +70,7 @@ public class FramePrincipal  implements ActionListener {
         frame.add(campo);
         frame.add(botao);
         frame.add(botaoIniciar);
+        frame.setVisible(true);
          
          //implementar funcao de tirar print com F11 e F12
         //REGISTRA O EVENTO
@@ -93,7 +94,7 @@ public class FramePrincipal  implements ActionListener {
     		System.out.println(end);	
     		campo.setText(end);
     		botaoIniciar.setEnabled(true);
-//    		janela.showMessageDialog(null, "A pasta foi criada com sucesso");
+
     		
     		}
     		catch (Exception ex) {
