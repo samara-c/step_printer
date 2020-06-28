@@ -1,10 +1,12 @@
 package principal;
 
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,8 +14,9 @@ import javax.imageio.ImageIO;
 
 public class Utils {
 	
-	String nomeEEnderecoPasta;
+	private String nomeEEnderecoPasta;
 	int i =0;
+	
 	
 	public String data (String format) { //pega a data atual e devolve uma string. precisa receber "dd/MM/yyyy" ou qualquer outro formato de data
 		
@@ -76,6 +79,18 @@ public class Utils {
 					Rectangle dimensaoTela = new Rectangle (screenSizeW,screenSizeH);
 					
 		return dimensaoTela;			
+	}
+	
+	
+
+
+	public String getNomeEEnderecoPasta() {
+		return nomeEEnderecoPasta;
+	}
+
+
+	public void setNomeEEnderecoPasta(String nomeEEnderecoPasta) {
+		this.nomeEEnderecoPasta = nomeEEnderecoPasta;
 	}
 }
 

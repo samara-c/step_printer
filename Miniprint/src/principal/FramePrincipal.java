@@ -1,16 +1,12 @@
 package principal;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Robot;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,8 +14,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
  
 public class FramePrincipal  implements ActionListener {
@@ -27,26 +21,32 @@ public class FramePrincipal  implements ActionListener {
     
 	private final JButton botao = new JButton("Escolher pasta");
 	private final JButton botaoIniciar = new JButton("Iniciar");
+	private final JButton botaoCaptura = new JButton ("Capturar!");
 	private final JTextField campo = new JTextField();
 	private final JOptionPane janela = new JOptionPane ();
-	private final JRadioButton opcaoF12 = new JRadioButton("F12", false);
-	private final JRadioButton opcaoF11 = new JRadioButton("F11",false);
+
 	private final ButtonGroup radioGroup = new ButtonGroup();
 	private final JFileChooser chooser = new JFileChooser();	
+	private final JLabel label = new JLabel();
+	private final JFrame frame = new JFrame("Step Printer");
+	private final JFrame frameCaptura = new JFrame("Step Printer");
+	private final Image icone = Toolkit.getDefaultToolkit().getImage("C:\\Users\\samar\\eclipse-workspace\\Miniprint\\resources\\imagem.png");
+	
+
+	
 	//private final JFileChooser chooser = new JFileChooser();	
     private Utils util = new Utils();
     int i=0;
+    public String end;
    
      
     public FramePrincipal() {
 		
-        JFrame frame = new JFrame("Step Printer");
-        JLabel label = new JLabel();
+        
+        
         JLabel labelDiretorio = new JLabel();
         
-        
-        radioGroup.add(opcaoF12);
-        radioGroup.add(opcaoF11);
+       
         campo.setColumns(30);
         botaoIniciar.setEnabled(false);
         label.setText("Bem vindo ao Step Printer! Selecione onde quer salvar as capturas de tela:");
@@ -62,20 +62,20 @@ public class FramePrincipal  implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(icone);
         
         frame.add(label);
         frame.add(labelDiretorio);
         frame.add(campo);
         frame.add(botao);
         frame.add(botaoIniciar);
-        
-        
-      
-        
+         
          //implementar funcao de tirar print com F11 e F12
         //REGISTRA O EVENTO
         botao.addActionListener(this);
         botaoIniciar.addActionListener(new Evento());
+        botaoCaptura.addActionListener(new Captura());
         
  
     }
@@ -89,10 +89,9 @@ public class FramePrincipal  implements ActionListener {
     		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     		chooser.showDialog(null, "Escolha a pasta para guardar os arquivos");
     		File enderecoArquivo = chooser.getSelectedFile();
-    		String end = enderecoArquivo.toString();
+    		end = enderecoArquivo.toString();
     		System.out.println(end);	
-    		String endereco = util.criarPasta(end);
-    		campo.setText(endereco);
+    		campo.setText(end);
     		botaoIniciar.setEnabled(true);
 //    		janela.showMessageDialog(null, "A pasta foi criada com sucesso");
     		
@@ -110,29 +109,45 @@ public class FramePrincipal  implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			util.capturaScreenshot("tela");
 			
+			String endereco = util.criarPasta(campo.getText());
+			System.out.println(endereco);
+			frame.setVisible(false);
+			botaoCaptura.setVisible(true);
+			frameCaptura.add(botaoCaptura);
+			frameCaptura.setLayout(new FlowLayout());
+			frameCaptura.setResizable(false);
+			frameCaptura.setSize(200,70);
+			frameCaptura.setIconImage(icone);
+			frameCaptura.setVisible(true);
 			
-			
-			
-			
-			
-			
-			
+	
 			
 		}
 		
-	
-				
-				
-				
+	}
+
+			private class Captura implements ActionListener {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+					frameCaptura.setVisible(false);
+					Thread.sleep(100);
+					util.capturaScreenshot("tela");
+					Thread.sleep(100);
+					frameCaptura.setVisible(true);
 					
-		
-				
+					} catch (InterruptedException e1) {
+						
+						e1.printStackTrace();
+					}
+					
+					
+					
+				}
 				
 			}
-
-			
 	
 				
 				
